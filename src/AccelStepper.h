@@ -420,7 +420,7 @@ public:
     /// speed as set by the most recent call to setSpeed(). You must call this as
     /// frequently as possible, but at least once per step interval,
     /// \return true if the motor was stepped.
-    boolean runSpeed();
+    virtual boolean runSpeed();
 
     /// Sets the maximum permitted speed. The run() function will accelerate
     /// up to the speed set by this function.
@@ -656,7 +656,6 @@ protected:
     /// 0 means the motor is currently stopped with _speed == 0
     unsigned long  _stepInterval;
 
-private:
     /// Number of pins on the stepper motor. Permits 2 or 4. 2 pins is a
     /// bipolar, and 4 pins is a unipolar.
     uint8_t        _interface;          // 0, 1, 2, 4, 8, See MotorInterfaceType
