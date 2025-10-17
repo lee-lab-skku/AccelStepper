@@ -30,7 +30,7 @@ void AccelStepper::setOrigin() {
     currentPosition = 0;
 }
 
-void AccelStepper::setDisplacement(long x) {
+void AccelStepper::setDisplacement(int32_t x) {
     targetPosition = x;
 }
 
@@ -41,9 +41,10 @@ void AccelStepper::setVelocity(float v) {
 
 void AccelStepper::setAcceleration(float a) {
     acceleration = a;
+    sqrtTwoAcceleration = sqrt(2.0 * fabs(a));
 }
 
-long AccelStepper::getDisplacement() {
+int32_t AccelStepper::getDisplacement() {
     return currentPosition;
 }
 
@@ -57,4 +58,15 @@ void AccelStepper::run() {
 
 void AccelStepper::stop() {
     
+}
+
+// assume initial speed is not zero
+float AccelStepper::computeNewSpeed() {
+    if (acceleration == 0.0)
+        return speed;
+
+    if (direction == (acceleration > 0))
+        return speed + fabs(acceleration) / speed;
+    else
+        return max(sqrtTwoAcceleration, speed - fabs(acceleration) / speed);
 }

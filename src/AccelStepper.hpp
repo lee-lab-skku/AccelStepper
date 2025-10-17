@@ -11,11 +11,11 @@ class AccelStepper {
         void disableOutput();
 
         void setOrigin();
-        void setDisplacement(long x);
+        void setDisplacement(int32_t x);
         void setVelocity(float v);
         void setAcceleration(float a);
 
-        long getDisplacement();
+        int32_t getDisplacement();
         float getVelocity();
 
         void run();
@@ -23,12 +23,16 @@ class AccelStepper {
 
     private:
         uint8_t pins[3];
-        bool pinsInverted[3] = {false, false, false};
         Tc* tc;
+        bool pinsInverted[3] = {false, false, false};
 
-        long currentPosition = 0;
-        long targetPosition = 0;
+        int32_t currentPosition = 0;
+        int32_t targetPosition = 0;
         bool direction = false;
         float speed = 0.0;
         float acceleration = 0.0;
+
+        float sqrtTwoAcceleration = 0.0;
+
+        float computeNewSpeed();
 };
