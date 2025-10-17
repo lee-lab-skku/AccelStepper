@@ -29,3 +29,9 @@
 *.app
 
 \.DS_Store
+
+platformio.ini
+.vscode/
+.pio/
+src/main.cpp
+shared/
